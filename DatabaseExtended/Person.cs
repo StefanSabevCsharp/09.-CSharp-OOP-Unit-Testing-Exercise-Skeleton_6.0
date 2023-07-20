@@ -1,4 +1,4 @@
-﻿namespace ExtendedDatabase
+﻿namespace ExtendedDatabaseTests
 {
     public class Person
     {

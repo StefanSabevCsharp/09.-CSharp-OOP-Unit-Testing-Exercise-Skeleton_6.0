@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 
-namespace ExtendedDatabase
+namespace ExtendedDatabaseTests
 {
     public class Database
     {
@@ -98,6 +99,11 @@ namespace ExtendedDatabase
 
             Person person = this.persons.First(p => p.Id == id);
             return person;
+        }
+
+        public IEnumerable Select(Func<object, object> value)
+        {
+            throw new NotImplementedException();
         }
     }
 }
