@@ -223,5 +223,114 @@ namespace CarManager.Tests
         }
 
 
+        [Test]
+        public void DriveShouldDecreaseFuelAmountWhenFuelNeededIsSmallerThanFuelAmount()
+        {
+            //Arrange
+            var make = "VW";
+            var model = "Golf";
+            var fuelConsumption = 5;
+            var fuelCapacity = 50;
+            var fuelToRefuel = 10;
+            var distance = 100;
+            //Act
+            var car = new Car(make, model, fuelConsumption, fuelCapacity);
+            car.Refuel(fuelToRefuel);
+            car.Drive(distance);
+            //Assert
+            Assert.AreEqual(fuelToRefuel - (distance / 100 * fuelConsumption), car.FuelAmount);
+              
+        }
+        //test drive method
+
+        public void DriveShouldDecreaseFuelAmountWhenFuelNeededIsSmallerThanFuelAmountAndFuelAmountIsNotZeroAndFuelAmountIsBiggerThanFuelCapacity()
+        {
+            //Arrange
+            var make = "VW";
+            var model = "Golf";
+            var fuelConsumption = 5;
+            var fuelCapacity = 50;
+            var fuelToRefuel = 10;
+            var distance = 100;
+            var distance2 = 50;
+            var distance3 = 100;
+            //Act
+            var car = new Car(make, model, fuelConsumption, fuelCapacity);
+            car.Refuel(fuelToRefuel);
+            car.Drive(distance);
+            car.Drive(distance2);
+            car.Drive(distance3);
+            //Assert
+            Assert.AreEqual(fuelCapacity - (distance / 100 * fuelConsumption) - (distance2 / 100 * fuelConsumption) - (distance3 / 100 * fuelConsumption), car.FuelAmount);
+        }
+        [Test]
+        public void DriveShouldThrowExceptionWhenFuelNeededIsBiggerThanFuelAmount()
+        {
+            //Arrange
+            var make = "VW";
+            var model = "Golf";
+            var fuelConsumption = 5;
+            var fuelCapacity = 50;
+            var fuelToRefuel = 10;
+            var distance = 100;
+
+            //Act
+            var car = new Car(make, model, fuelConsumption, fuelCapacity);
+            car.Refuel(fuelToRefuel);
+
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => car.Drive(distance * 3), "You don't have enough fuel to drive!");
+        }
+        //continue with other tests that are not made already
+        [Test]
+        public void DriveShouldThrowExceptionWhenFuelNeededIsBiggerThanFuelAmountAndFuelAmountIsNotZeroAndFuelAmountIsBiggerThanFuelCapacity()
+        {
+            //Arrange
+            var make = "VW";
+            var model = "Golf";
+            var fuelConsumption = 5;
+            var fuelCapacity = 50;
+            var fuelToRefuel = 10;
+            var distance = 100;
+            var distance2 = 50;
+            var distance3 = 100;
+            var distance4 = 100;
+            //Act
+            var car = new Car(make, model, fuelConsumption, fuelCapacity);
+            car.Refuel(fuelToRefuel);
+            car.Drive(distance);
+            car.Drive(distance2);
+            car.Drive(distance3);
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => car.Drive(distance4), "You don't have enough fuel to drive!");
+
+        }
+        [Test]
+        public void DriveShouldDecreaseFuelAmountWhenFuelNeededIsSmallerThanFuelAmountAndFuelAmountIsNotZeroAndFuelAmountIsBiggerThanFuelCapacityAndRefuelIsCalled()
+        {
+            //Arrange
+            var make = "VW";
+            var model = "Golf";
+            var fuelConsumption = 5;
+            var fuelCapacity = 50;
+            var fuelToRefuel = 10;
+            var distance = 100;
+            var distance2 = 50;
+            var distance3 = 100;
+            var distance4 = 100;
+            var fuelToRefuel2 = 10;
+            //Act
+            var car = new Car(make, model, fuelConsumption, fuelCapacity);
+            car.Refuel(fuelToRefuel);
+            car.Drive(distance);
+            car.Drive(distance2);
+            car.Drive(distance3);
+            car.Refuel(fuelToRefuel2);
+            car.Drive(distance4);
+            //Assert
+            Assert.AreEqual(fuelCapacity - (distance / 100 * fuelConsumption) - (distance2 / 100 * fuelConsumption) - (distance3 / 100 * fuelConsumption) - (distance4 / 100 * fuelConsumption), car.FuelAmount);
+        }
+      
+
     }
 }
